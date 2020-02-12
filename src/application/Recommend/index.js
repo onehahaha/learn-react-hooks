@@ -1,5 +1,6 @@
 import React from 'react';
-import Slider from '../../components/slider/index'
+import Slider from '../../components/slider/index';
+import RecommendList from '../../components/list/index'
 
 function Recommend (props) {
   const bannerList = [1,2,3,4].map (item => {
@@ -18,6 +19,7 @@ function Recommend (props) {
   return (
     <div>
       <Slider bannerList={bannerList} ></Slider>
+      <RecommendList recommendList={recommendList}></RecommendList>
     </div>
   )
 }
