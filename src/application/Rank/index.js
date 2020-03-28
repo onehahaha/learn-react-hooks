@@ -27,12 +27,8 @@ function Rank(props) {
     getRankListDataDispatch()
   }, [])
 
-  const enterDetail = (name) => {
-    const idx = filterIdx(name);
-    if (idx === null) {
-      alert("暂无相关数据");
-      return;
-    }
+  const enterDetail = (detail) => {
+    props.history.push (`/rank/${detail.id}`)
   }
 
   const renderRankList = (list, global) => {
@@ -41,7 +37,7 @@ function Rank(props) {
         {
           list.map((item) => {
             return (
-              <ListItem key={item.coverImgId} tracks={item.tracks} onClick={() => enterDetail(item.name)}>
+              <ListItem key={item.coverImgId} tracks={item.tracks} onClick={() => enterDetail(item)}>
                 <div className="img_wrapper">
                   <img src={item.coverImgUrl} alt="" />
                   <div className="decorate"></div>
