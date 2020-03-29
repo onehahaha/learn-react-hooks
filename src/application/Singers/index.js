@@ -22,13 +22,11 @@ import { connect } from 'react-redux';
 import Loading from '../../baseUI/loading';
 import LazyLoad, {forceCheck} from 'react-lazyload'
 import { CategoryDataContext, CHANGE_ALPHA, CHANGE_CATEGORY } from './data'
+import { renderRoutes } from 'react-router-config'
 
 function Singers(props) {
   const { data, dispatch} =  useContext(CategoryDataContext)
   const {category, alpha} = data.toJS ();
-
-  // let [category, setCategory] = useState('');
-  // let [alpha, setAlpha] = useState('');
 
   const { singerList, enterLoading, pullUpLoading, pullDownLoading, pageCount } = props;
   const { getHotSingerDispatch, updateDispatch, pullDownRefreshDispatch, pullUpRefreshDispatch } = props;
@@ -52,6 +50,10 @@ function Singers(props) {
     }
   }, [])
 
+  const enterDetail = (id)=>{
+    props.history.push(`/singers/${id}`)
+  }
+
   //渲染歌手
   const renderSingerList = () => {
     const list = singerList ? singerList.toJS() : []
@@ -59,7 +61,7 @@ function Singers(props) {
       <List>
         {
           list.map((item, index) => (
-            <ListItem key={item.accountId + '' + index}>
+            <ListItem key={item.accountId + '' + index} onClick={()=>enterDetail(item.id)}>
               <div className="img_wrapper">
                 <LazyLoad placeholder={<img width='100%' height='100%' src={require('./singer.png') }></img>}>
                   <img src={`${item.picUrl}?param=300x300`} width="100%" height="100%" alt="music" />
@@ -108,6 +110,7 @@ function Singers(props) {
         </Scroll>
         <Loading show={enterLoading}></Loading>
       </ListContainer>
+      { renderRoutes (props.route.routes) }
     </div>
   )
 }
